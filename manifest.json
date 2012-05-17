@@ -13,7 +13,13 @@
     },
     {
       "matches": ["https://mail.google.com/*"],
-      "js": ["js/jquery.min.js", "js/util.js", "js/db.js", "js/gmail.js"],
+      "js": [
+        "js/jquery.min.js",
+        "js/async.min.js",
+        "js/util.js",
+        "js/db.js",
+        "js/api.js",
+        "js/gmail.js"],
       "run_at": "document_start"
     }
   ],

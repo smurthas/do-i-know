@@ -2,16 +2,17 @@ if (typeof DoIKnow === 'undefined') DoIKnow = {};
 
 DoIKnow.Options = (function() {
   function init() {
-    var token = DoIKnow.Util.accessToken();
-    if (token) {
-      $.getJSON(DoIKnow.Util.api('/profiles'), {
-        access_token: token
-      }, function(profiles) {
-        buildLogins(profiles);
-      });
-    } else {
-      buildLogins({});
-    }
+    DoIKnow.Util.accessToken(function(accessToken) {
+      if (accessToken) {
+        $.getJSON(DoIKnow.Util.api('/profiles'), {
+          access_token: accessToken
+        }, function(profiles) {
+          buildLogins(profiles);
+        });
+      } else {
+        buildLogins({});
+      }
+    });
   }
 
   function buildLogins(profiles) {
@@ -33,25 +34,26 @@ DoIKnow.Options = (function() {
 
   function authorizeService(evt) {
     evt.preventDefault();
-    var token = DoIKnow.Util.accessToken();
-    if (token) {
-      chrome.tabs.create({
-        url: DoIKnow.API_HOST + '/oauth/authorize?' + $.param({
-               client_id: DoIKnow.CLIENT_ID,
-               redirect_uri: DoIKnow.REDIRECT_URI,
-               service: evt.data.service
-        })
-      });
-    } else {
-      var auth = new OAuth2('singly', {
-        client_id: DoIKnow.CLIENT_ID,
-        client_secret: DoIKnow.CLIENT_SECRET,
-        api_scope: evt.data.service
-      });
-      auth.authorize(function() {
-        location.reload();
-      });
-    }
+    DoIKnow.Util.accessToken(function(accessToken) {
+      if (accessToken) {
+        chrome.tabs.create({
+          url: DoIKnow.API_HOST + '/oauth/authorize?' + $.param({
+                 client_id: DoIKnow.CLIENT_ID,
+                 redirect_uri: DoIKnow.REDIRECT_URI,
+                 service: evt.data.service
+          })
+        });
+      } else {
+        var auth = new OAuth2('singly', {
+          client_id: DoIKnow.CLIENT_ID,
+          client_secret: DoIKnow.CLIENT_SECRET,
+          api_scope: evt.data.service
+        });
+        auth.authorize(function() {
+          location.reload();
+        });
+      }
+    });
   }
 
   return {

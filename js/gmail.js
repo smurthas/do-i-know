@@ -3,7 +3,7 @@ $(function() {
     DoIKnow.Util.accessToken(function(accessToken) {
       console.error("DEBUG: accessToken", accessToken);
     });
-    // if (!DoIKnow.LOADED) return;
+    if (!DoIKnow.LOADED) return;
     var lines = findLines();
     lines.each(function(i) {
       var line = lines[i];

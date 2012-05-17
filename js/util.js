@@ -1,7 +1,7 @@
 if (typeof DoIKnow === 'undefined') DoIKnow = {};
 
 DoIKnow.LOADED = false;
-DoIKnow.EXTENSION_ID = 'cepnecmfgkbbjeiklllgikojljahmhmk';
+DoIKnow.EXTENSION_ID = 'jlhjfkmmifpacdfmbnpfficecgjlload';
 DoIKnow.API_HOST = 'https://api.singly.com';
 DoIKnow.SERVICES = [
   'facebook',

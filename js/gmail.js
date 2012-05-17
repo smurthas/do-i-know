@@ -1,13 +1,12 @@
 $(function() {
   setInterval(function() {
+    // if (!DoIKnow.LOADED) return;
     var lines = findLines();
-    var froms = [];
     lines.each(function(i) {
       var line = lines[i];
       var from = getFrom(line);
-      if(!from) return;
-      froms.push(from);
-      getById(from.line.id).css({opacity: 0.2});
+      if (!from) return;
+      if (!(DB.lookupName(from.name) || DB.lookupEmail(from.email))) getById(from.line.id).css({opacity: 0.2});
     });
   }, 1000);
 });

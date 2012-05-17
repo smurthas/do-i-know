@@ -1,4 +1,4 @@
-DoIKnowif (typeof DoIKnow === 'undefined') DoIKnow = {};
+if (typeof DoIKnow === 'undefined') DoIKnow = {};
 
 DoIKnow.Options = (function() {
   function init() {

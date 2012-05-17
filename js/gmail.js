@@ -1,8 +1,5 @@
 $(function() {
   setInterval(function() {
-    DoIKnow.Util.accessToken(function(accessToken) {
-      console.error("DEBUG: accessToken", accessToken);
-    });
     if (!DoIKnow.LOADED) return;
     var lines = findLines();
     lines.each(function(i) {

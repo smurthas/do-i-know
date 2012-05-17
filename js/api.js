@@ -81,13 +81,15 @@ $(function() {
     }, function(profiles) {
       console.log("PROFILES",profiles);
       async.forEach(Object.keys(profiles), function(service, cb) {
-        if(api[service]) api[service](accessToken, function(){
+        if(!api[service]) return cb();
+        api[service](accessToken, function(){
           console.log("DONE with "+service);
           cb();
         });
       }, function(){
         console.log("ALL DONE NOW");
-        DoIKnow.loaded = true;
+        DoIKnow.LOADED = true;
+        console.log(DB.dump());
       });
     });
   });

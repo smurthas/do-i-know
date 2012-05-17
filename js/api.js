@@ -1,79 +1,74 @@
 if (typeof DoIKnow === 'undefined') DoIKnow = {};
 
 api = {
-  twitter: function(done) {
-    $.getJSON(DoIKnow.Util.api('/services/twitter/friends'), {
-      access_token: DoIKnow.Util.accessToken(),
-      limit: 10000
-    }, function (friends) {
-      _.each(friends, function(friend) {
-        DB.saveName(friend.data.name);
-      });
-    });
-    done();
-  },
-  linkedin: function(done) {
-    $.getJSON(DoIKnow.Util.api('/services/linkedin/connections'), {
-      access_token: DoIKnow.Util.accessToken(),
-      limit: 10000
-      }, function (connections) {
-        _.each(connections, function(connection) {
-          DB.saveName(connection.data.firstName + ' ' + connection.data.lastName);
-        });
-      });
-    done();
-  },
-  facebook: function(done) {
-    DoIKnow.Util.accessToken(function(accessToken) {
-      $.getJSON(DoIKnow.Util.api('/services/facebook/friends'), {
-        access_token: DoIKnow.Util.accessToken(),
-        limit:1000
-      }, function(list) {
-        _.each(list, function(entry){
-          DB.saveName(entry.data.name);
-        });
-        done();
-      });
-    });
-  },
-  instagram: function(done) {
-    DoIKnow.Util.accessToken(function(accessToken) {
-    $.getJSON(DoIKnow.Util.api('/services/instagram/follows'), {
-      access_token: accessToken,
+  facebook: function(token, done) {
+    $.getJSON(DoIKnow.Util.api('/services/facebook/friends'), {
+      access_token: token,
       limit:1000
     }, function(list) {
-      _.each(list, function(entry){
+      list.each(function(entry) {
+        DB.saveName(entry.data.name);
+      });
+      done();
+    });
+  },
+  instagram: function(token, done) {
+    $.getJSON(DoIKnow.Util.api('/services/instagram/follows'), {
+      access_token: token,
+      limit:1000
+    }, function(list) {
+      list.each(function(entry){
         DB.saveName(entry.data.full_name);
       });
       done();
     });
-    });
   },
-  foursquare: function(done) {
-    DoIKnow.Util.accessToken(function(accessToken) {
+  foursquare: function(token, done) {
     $.getJSON(DoIKnow.Util.api('/services/foursquare/friends'), {
-      access_token: accessToken,
+      access_token: token,
       limit:1000
     }, function(list) {
-      _.each(list, function(entry){
+      list.each(function(entry){
         DB.saveName(entry.data.firstName+' '+entry.data.lastName);
         if(entry.data.contact && entry.data.contact.email) DB.saveEmail(entry.data.contact.email);
       });
       done();
     });
+  },
+  linkedin: function(token, done) {
+    $.getJSON(DoIKnow.Util.api('/services/linkedin/connections'), {
+      access_token: token,
+      limit: 10000
+    }, function(connections) {
+      connections.each(function(connection) {
+        DB.saveName(connection.data.firstName + ' ' + connection.data.lastName);
+      });
+    done();
+    });
+  },
+  twitter: function(token, done) {
+    $.getJSON(DoIKnow.Util.api('/services/twitter/friends'), {
+      access_token: token,
+      limit: 10000
+    }, function(list) {
+      console.log(list);
+      list.forEach(function(friend) {
+        DB.saveName(friend.data.name);
+      });
+      done();
     });
   }
 }
 
 $(function() {
   DoIKnow.Util.accessToken(function(accessToken) {
-    if(!accessToken)return console.log("NO TOKEN");
+    if(!accessToken) return console.log("NO TOKEN");
     $.getJSON(DoIKnow.Util.api('/profiles'), {
-      access_token: DoIKnow.Util.accessToken()
+      access_token: accessToken
     }, function(profiles) {
       console.log("PROFILES",profiles);
       async.forEach(Object.keys(profiles), function(service, cb) {
-        if(api[service]) api[service](function(){
+        if(api[service]) api[service](accessToken, function(){
           console.log("DONE with "+service);
           cb();
         });

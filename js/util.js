@@ -17,6 +17,7 @@ DoIKnow.REDIRECT_URI = 'https://api.singly.com/robots.txt';
 
 DoIKnow.Util = {
   accessToken: function() {
+    console.log('My API token' + localStorage.singly_accessToken);
     return localStorage.singly_accessToken;
   },
   api: function(path) {

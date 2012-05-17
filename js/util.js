@@ -10,8 +10,8 @@ DoIKnow.SERVICES = [
   'foursquare',
   'email'
 ];
-DoIKnow.CLIENT_ID = 'X';
-DoIKnow.CLIENT_SECRET = 'X';
+DoIKnow.CLIENT_ID = 'dfd23d9f5385c8aa3d001496636c17e9';
+DoIKnow.CLIENT_SECRET = '4fc26f0a8543313bf3c128eb2ae6c900';
 DoIKnow.REDIRECT_URI = 'https://api.singly.com/robots.txt';
 
 DoIKnow.Util = {

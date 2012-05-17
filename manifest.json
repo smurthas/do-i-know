@@ -2,8 +2,9 @@
   "name": "Do I Know Thee?",
   "version": "0.0.0",
   "manifest_version": 1,
-  "description": "Post First checks your social networks to see if someone has already posted your current URL.",
+  "description": "Do I Know Thee reduces the clutter of your inbox by making the messages from people you don't know fade to the background.",
   "options_page": "options.html",
+  "background_page": "background.html",
   "content_scripts": [
     {
       "matches": ["https://api.singly.com/robots.txt*"],
@@ -13,17 +14,16 @@
     {
       "matches": ["https://mail.google.com/*"],
       "js": [
-		"js/jquery.min.js",
-		"js/async.min.js",
-		"js/util.js",
-		"js/db.js",
-		"js/api.js",
-		"js/gmail.js"],
+        "js/jquery.min.js",
+        "js/async.min.js",
+        "js/util.js",
+        "js/db.js",
+        "js/api.js",
+        "js/gmail.js"],
       "run_at": "document_start"
     }
   ],
   "permissions": [
-    "tabs",
     "https://api.singly.com/",
     "https://mail.google.com/"
   ],

@@ -1,5 +1,8 @@
 $(function() {
   setInterval(function() {
+    DoIKnow.Util.accessToken(function(accessToken) {
+      console.error("DEBUG: accessToken", accessToken);
+    });
     if (!DoIKnow.LOADED) return;
     var lines = findLines();
     lines.each(function(i) {
@@ -9,6 +12,7 @@ $(function() {
       if (!(DB.lookupName(from.name) || DB.lookupEmail(from.email))) getById(from.line.id).css({opacity: 0.2});
     });
   }, 1000);
+
 });
 
 function findBody() {
@@ -32,8 +36,6 @@ function getFrom(line) {
 function getById(id) {
   return findBody().find("#\\" + id);
 }
-
-
 
 //za == line
   //yO == read

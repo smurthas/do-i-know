@@ -6,7 +6,7 @@ api = {
       access_token: token,
       limit:1000
     }, function(list) {
-      list.each(function(entry) {
+      list.forEach(function(entry) {
         DB.saveName(entry.data.name);
       });
       done();
@@ -17,7 +17,7 @@ api = {
       access_token: token,
       limit:1000
     }, function(list) {
-      list.each(function(entry){
+      list.forEach(function(entry){
         DB.saveName(entry.data.full_name);
       });
       done();
@@ -28,7 +28,7 @@ api = {
       access_token: token,
       limit:1000
     }, function(list) {
-      list.each(function(entry){
+      list.forEach(function(entry){
         DB.saveName(entry.data.firstName+' '+entry.data.lastName);
         if(entry.data.contact && entry.data.contact.email) DB.saveEmail(entry.data.contact.email);
       });
@@ -40,7 +40,7 @@ api = {
       access_token: token,
       limit: 10000
     }, function(connections) {
-      connections.each(function(connection) {
+      connections.forEach(function(connection) {
         DB.saveName(connection.data.firstName + ' ' + connection.data.lastName);
       });
     done();

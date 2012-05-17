@@ -57,6 +57,19 @@ api = {
       });
       done();
     });
+  },
+  email: function(token, done) {
+    $.getJSON(DoIKnow.Util.api('/services/email/contacts'), {
+      access_token: token,
+      limit: 10000
+    }, function(list) {
+      console.log(list);
+      list.forEach(function(contact) {
+        DB.saveName(contact.data.name);
+        DB.saveEmail(contact.data.email);
+      });
+      done();
+    });
   }
 }
 

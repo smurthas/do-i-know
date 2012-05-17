@@ -1,20 +1,14 @@
 $(function() {
-  setTimeout(function() {
+  setInterval(function() {
+    // if (!DoIKnow.LOADED) return;
     var lines = findLines();
-    // console.log('lines', lines);
-    var froms = [];
     lines.each(function(i) {
       var line = lines[i];
       var from = getFrom(line);
-      if(!from) return;
-      froms.push(from);
-      console.log('from:', from)
-      console.log('id:', getById(from.line.id));
-      getById(from.line.id).css({color: '#ddd'});
-      getById(from.line.id).find('.y2').css({color: '#ddd'});
+      if (!from) return;
+      if (!(DB.lookupName(from.name) || DB.lookupEmail(from.email))) getById(from.line.id).css({opacity: 0.2});
     });
-    // console.log(froms);
-  }, 6000);
+  }, 1000);
 });
 
 function findBody() {
@@ -38,6 +32,8 @@ function getFrom(line) {
 function getById(id) {
   return findBody().find("#\\" + id);
 }
+
+
 
 //za == line
   //yO == read

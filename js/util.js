@@ -1,5 +1,6 @@
 if (typeof DoIKnow === 'undefined') DoIKnow = {};
 
+DoIKnow.LOADED = false;
 DoIKnow.EXTENSION_ID = 'cepnecmfgkbbjeiklllgikojljahmhmk';
 DoIKnow.API_HOST = 'https://api.singly.com';
 DoIKnow.SERVICES = [

@@ -1,9 +1,9 @@
-if (typeof PostFirst === 'undefined') PostFirst = {};
+if (typeof DoIKnow === 'undefined') DoIKnow = {};
 
-PostFirst.Popup = (function() {
+DoIKnow.Popup = (function() {
 
   function check(tab) {
-    var token = PostFirst.Util.accessToken();
+    var token = DoIKnow.Util.accessToken();
     if (!token) {
       chrome.tabs.create({
         url: 'options.html'
@@ -23,8 +23,8 @@ PostFirst.Popup = (function() {
   }
 
   function fetchLinks(done) {
-    $.getJSON(PostFirst.Util.api('/types/news'), {
-      access_token: PostFirst.Util.accessToken(),
+    $.getJSON(DoIKnow.Util.api('/types/news'), {
+      access_token: DoIKnow.Util.accessToken(),
       limit: 300
     }, function(links) {
       _.each(links, function(link) {
@@ -65,6 +65,6 @@ PostFirst.Popup = (function() {
 
 $(function() {
   chrome.tabs.getSelected(null, function(tab) {
-    PostFirst.Popup.check(tab);
+    DoIKnow.Popup.check(tab);
   });
 });

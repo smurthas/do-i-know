@@ -1,10 +1,10 @@
-if (typeof PostFirst === 'undefined') PostFirst = {};
+DoIKnowif (typeof DoIKnow === 'undefined') DoIKnow = {};
 
-PostFirst.Options = (function() {
+DoIKnow.Options = (function() {
   function init() {
-    var token = PostFirst.Util.accessToken();
+    var token = DoIKnow.Util.accessToken();
     if (token) {
-      $.getJSON(PostFirst.Util.api('/profiles'), {
+      $.getJSON(DoIKnow.Util.api('/profiles'), {
         access_token: token
       }, function(profiles) {
         buildLogins(profiles);
@@ -16,7 +16,7 @@ PostFirst.Options = (function() {
 
   function buildLogins(profiles) {
     var services = $('#services');
-    _.each(PostFirst.SERVICES, function(service) {
+    _.each(DoIKnow.SERVICES, function(service) {
       var li = $('<li>').text(service + ' ');
       if (profiles[service]) {
         li.append('&#10004;');
@@ -33,19 +33,19 @@ PostFirst.Options = (function() {
 
   function authorizeService(evt) {
     evt.preventDefault();
-    var token = PostFirst.Util.accessToken();
+    var token = DoIKnow.Util.accessToken();
     if (token) {
       chrome.tabs.create({
-        url: PostFirst.API_HOST + '/oauth/authorize?' + $.param({
-               client_id: PostFirst.CLIENT_ID,
-               redirect_uri: PostFirst.REDIRECT_URI,
+        url: DoIKnow.API_HOST + '/oauth/authorize?' + $.param({
+               client_id: DoIKnow.CLIENT_ID,
+               redirect_uri: DoIKnow.REDIRECT_URI,
                service: evt.data.service
         })
       });
     } else {
       var auth = new OAuth2('singly', {
-        client_id: PostFirst.CLIENT_ID,
-        client_secret: PostFirst.CLIENT_SECRET,
+        client_id: DoIKnow.CLIENT_ID,
+        client_secret: DoIKnow.CLIENT_SECRET,
         api_scope: evt.data.service
       });
       auth.authorize(function() {
@@ -59,4 +59,4 @@ PostFirst.Options = (function() {
   };
 })();
 
-$(PostFirst.Options.init);
+$(DoIKnow.Options.init);

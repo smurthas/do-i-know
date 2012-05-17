@@ -36,6 +36,12 @@ var OAuth2 = function(adapterName, config, callback) {
       that.set('apiScope', config.api_scope);
     }
   });
+
+  console.error('DEBUG: adding listner');
+  chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+    console.error('DEBUG sending:', that.getAccessToken());
+    sendResponse({accessToken: that.getAccessToken()});
+  });
 };
 
 /**
@@ -363,3 +369,4 @@ OAuth2.prototype.getAccessToken = function() {
 OAuth2.prototype.clearAccessToken = function() {
   this.clear('accessToken');
 };
+

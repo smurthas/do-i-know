@@ -6,7 +6,7 @@ DoIKnow.API_HOST = 'https://api.singly.com';
 DoIKnow.SERVICES = [
   'facebook',
   'linkedin',
-  'tumblr',
+  'instagram',
   'twitter',
   'foursquare',
   'email'
@@ -17,10 +17,8 @@ DoIKnow.REDIRECT_URI = 'https://api.singly.com/robots.txt';
 
 DoIKnow.Util = {
   accessToken: function(callback) {
-    if(localStorage.singly_accessToken) return callback(localStorage.singly_accessToken)
     chrome.extension.sendRequest({method:'getAccessToken'}, function(response) {
-      localStorage.singly_accessToken = response.accessToken;
-      callback(localStorage.singly_accessToken);
+      callback(response.accessToken);
     });
   },
   api: function(path) {

@@ -26,3 +26,7 @@ DB.lookupEmail = function(email) {
   email = email.toLowerCase();
   return store.emails[email];
 }
+
+DB.dump = function() {
+  return store;
+}

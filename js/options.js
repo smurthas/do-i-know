@@ -9,6 +9,7 @@ DoIKnow.Options = (function() {
         }, function(profiles) {
           buildLogins(profiles);
         });
+//        showKnow(DB.dump()); need to use sendRequest() stuff to get this
       } else {
         buildLogins({});
       }
@@ -28,6 +29,18 @@ DoIKnow.Options = (function() {
             .click({service: service}, authorizeService)
         );
       }
+      services.append(li);
+    });
+  }
+
+  function showKnow(known) {
+    var services = $('#know');
+    _.each(known.names, function(name) {
+      var li = $('<li>').text(name);
+      services.append(li);
+    });
+    _.each(known.emails, function(name) {
+      var li = $('<li>').text(name);
       services.append(li);
     });
   }

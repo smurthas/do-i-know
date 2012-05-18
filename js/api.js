@@ -75,8 +75,7 @@ api = {
 
 $(function() {
   DoIKnow.Util.accessToken(function(accessToken) {
-    if(!accessToken) return console.log("NO TOKEN");
-    console.log("TOKEN",accessToken);
+    if(!accessToken || accessToken === 'undefined') return openOptions();
     $.getJSON(DoIKnow.Util.api('/profiles'), {
       access_token: accessToken
     }, function(profiles) {
@@ -95,3 +94,7 @@ $(function() {
     });
   });
 });
+
+function openOptions() {
+  window.open(chrome.extension.getURL('options.html'));
+}

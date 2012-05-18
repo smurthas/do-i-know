@@ -30,6 +30,7 @@
     }
   ],
   "permissions": [
+    "tabs",
     "https://api.singly.com/",
     "https://mail.google.com/"
   ],

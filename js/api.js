@@ -76,6 +76,7 @@ api = {
 $(function() {
   DoIKnow.Util.accessToken(function(accessToken) {
     if(!accessToken) return console.log("NO TOKEN");
+    console.log("TOKEN",accessToken);
     $.getJSON(DoIKnow.Util.api('/profiles'), {
       access_token: accessToken
     }, function(profiles) {
